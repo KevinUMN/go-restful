@@ -8,14 +8,6 @@ import (
 	"github.com/KevinUMN/go-restful"
 )
 
-type User struct {
-	Id, Name string
-}
-
-type UserList struct {
-	Users []User
-}
-
 // This example show how to create and use the three different Filters (Container,WebService and Route)
 // When applied to the restful.DefaultContainer, we refer to them as a global filter.
 //

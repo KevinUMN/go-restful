@@ -7,14 +7,6 @@ import (
 	"github.com/KevinUMN/go-restful"
 )
 
-type User struct {
-	Id, Name string
-}
-
-type UserList struct {
-	Users []User
-}
-
 //
 // This example shows how to use the CompressingResponseWriter by a Filter
 // such that encoding can be enabled per WebService or per Route (instead of per container)

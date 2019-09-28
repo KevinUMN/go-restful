@@ -45,11 +45,11 @@ func NCSACommonLogFormatLogger() restful.FilterFunction {
 func main() {
 	ws := new(restful.WebService)
 	ws.Filter(NCSACommonLogFormatLogger())
-	ws.Route(ws.GET("/ping").To(hello))
+	ws.Route(ws.GET("/ping").To(pong))
 	restful.Add(ws)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func hello(req *restful.Request, resp *restful.Response) {
+func pong(req *restful.Request, resp *restful.Response) {
 	io.WriteString(resp, "pong")
 }

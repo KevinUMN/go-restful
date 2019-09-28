@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io"
 	"log"
 	"net/http"
 	
@@ -13,27 +12,6 @@ import (
 // OPTIONS http://localhost:8080/users
 //
 // OPTIONS http://localhost:8080/users/1
-
-type UserResource struct{}
-
-func (u UserResource) RegisterTo(container *restful.Container) {
-	ws := new(restful.WebService)
-	ws.
-		Path("/users").
-		Consumes("*/*").
-		Produces("*/*")
-	
-	ws.Route(ws.GET("/{user-id}").To(u.nop))
-	ws.Route(ws.POST("").To(u.nop))
-	ws.Route(ws.PUT("/{user-id}").To(u.nop))
-	ws.Route(ws.DELETE("/{user-id}").To(u.nop))
-	
-	container.Add(ws)
-}
-
-func (u UserResource) nop(request *restful.Request, response *restful.Response) {
-	io.WriteString(response.ResponseWriter, "this would be a normal response")
-}
 
 func main() {
 	wsContainer := restful.NewContainer()

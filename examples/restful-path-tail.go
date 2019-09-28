@@ -1,10 +1,11 @@
 package main
 
 import (
-	. "github.com/KevinUMN/go-restful"
 	"io"
 	"log"
 	"net/http"
+	
+	. "github.com/KevinUMN/go-restful"
 )
 
 // This example shows how to create a Route matching the "tail" of a path.
@@ -17,7 +18,7 @@ func main() {
 	ws := new(WebService)
 	ws.Route(ws.GET("/basepath/{resource:*}").To(staticFromPathParam))
 	Add(ws)
-
+	
 	println("[go-restful] serve path tails from http://localhost:8080/basepath")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

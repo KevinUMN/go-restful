@@ -9,11 +9,6 @@ import (
 	"github.com/KevinUMN/go-restful"
 )
 
-type User struct {
-	Id   int
-	Name string
-}
-
 //
 // This example shows how to log both the request body and response body
 

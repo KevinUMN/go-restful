@@ -21,7 +21,7 @@ import (
 
 func main() {
 	ws := new(restful.WebService)
-	ws.Route(ws.GET("/hello").To(hello))
+	ws.Route(ws.GET("/hello").To(hello1))
 	restful.Add(ws)
 	go func() {
 		log.Fatal(http.ListenAndServe(":8080", nil))
@@ -35,7 +35,7 @@ func main() {
 	log.Fatal(server.ListenAndServe())
 }
 
-func hello(req *restful.Request, resp *restful.Response) {
+func hello1(req *restful.Request, resp *restful.Response) {
 	io.WriteString(resp, "default world")
 }
 

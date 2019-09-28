@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/KevinUMN/go-restful"
 	"io"
 	"log"
 	"net/http"
+	
+	"github.com/KevinUMN/go-restful"
 )
 
 // This example shows how the different types of filters are called in the request-response flow.
@@ -69,22 +70,22 @@ func trace(what string, delta int) {
 func main() {
 	restful.Filter(container_filter_A)
 	restful.Filter(container_filter_B)
-
+	
 	ws1 := new(restful.WebService)
 	ws1.Path("/1")
 	ws1.Filter(service_filter_A)
 	ws1.Filter(service_filter_B)
 	ws1.Route(ws1.GET("").To(doit1).Filter(route_filter_A).Filter(route_filter_B))
-
+	
 	ws2 := new(restful.WebService)
 	ws2.Path("/2")
 	ws2.Filter(service_filter_A)
 	ws2.Filter(service_filter_B)
 	ws2.Route(ws2.GET("").To(doit2).Filter(route_filter_A).Filter(route_filter_B))
-
+	
 	restful.Add(ws1)
 	restful.Add(ws2)
-
+	
 	log.Print("go-restful example listing on http://localhost:8080/1 and http://localhost:8080/2")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

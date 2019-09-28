@@ -9,3 +9,5 @@ require (
 	github.com/json-iterator/go v1.1.7
 	gopkg.in/vmihailenco/msgpack.v2 v2.9.1
 )
+
+exclude github.com/KevinUmn/go-restful/examples v0.0.0

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"path"
 
@@ -22,7 +23,7 @@ func main() {
 	restful.DefaultContainer.Router(restful.CurlyRouter{})
 
 	ws := new(restful.WebService)
-	ws.Route(ws.GET("/static/{subpath:*}").To(staticFromPathParam))
+	ws.Route(ws.GET("/static/{subpath:*}").To(staticFromPathParam1))
 	ws.Route(ws.GET("/static").To(staticFromQueryParam))
 	restful.Add(ws)
 
@@ -30,7 +31,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func staticFromPathParam(req *restful.Request, resp *restful.Response) {
+func staticFromPathParam1(req *restful.Request, resp *restful.Response) {
 	actual := path.Join(rootdir, req.PathParameter("subpath"))
 	fmt.Printf("serving %s ... (from %s)\n", actual, req.PathParameter("subpath"))
 	http.ServeFile(

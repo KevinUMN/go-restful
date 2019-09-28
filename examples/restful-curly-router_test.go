@@ -11,14 +11,6 @@ import (
 	"github.com/KevinUMN/go-restful"
 )
 
-type User struct {
-	Id, Name string
-}
-
-type UserResource struct {
-	users map[string]User
-}
-
 func (u UserResource) Register(container *restful.Container) {
 	ws := new(restful.WebService)
 	ws.
