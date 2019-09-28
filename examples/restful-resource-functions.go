@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/emicklei/go-restful"
 	"log"
 	"net/http"
+	
+	"github.com/KevinUMN/go-restful"
 )
 
 // This example shows how to use methods as RouteFunctions for WebServices.
@@ -45,15 +46,15 @@ func (p ProductResource) Register() {
 	ws.Path("/products")
 	ws.Consumes(restful.MIME_XML)
 	ws.Produces(restful.MIME_XML)
-
+	
 	ws.Route(ws.GET("/{id}").To(p.getOne).
 		Doc("get the product by its id").
 		Param(ws.PathParameter("id", "identifier of the product").DataType("string")))
-
+	
 	ws.Route(ws.POST("").To(p.postOne).
 		Doc("update or create a product").
 		Param(ws.BodyParameter("Product", "a Product (XML)").DataType("main.Product")))
-
+	
 	restful.Add(ws)
 }
 

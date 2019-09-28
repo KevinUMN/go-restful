@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/emicklei/go-restful"
 	"io"
 	"log"
 	"net/http"
+	
+	"github.com/KevinUMN/go-restful"
 )
 
 // This example shows how to use the OPTIONSFilter on a Container
@@ -21,12 +22,12 @@ func (u UserResource) RegisterTo(container *restful.Container) {
 		Path("/users").
 		Consumes("*/*").
 		Produces("*/*")
-
+	
 	ws.Route(ws.GET("/{user-id}").To(u.nop))
 	ws.Route(ws.POST("").To(u.nop))
 	ws.Route(ws.PUT("/{user-id}").To(u.nop))
 	ws.Route(ws.DELETE("/{user-id}").To(u.nop))
-
+	
 	container.Add(ws)
 }
 
@@ -38,13 +39,13 @@ func main() {
 	wsContainer := restful.NewContainer()
 	u := UserResource{}
 	u.RegisterTo(wsContainer)
-
+	
 	// Add container filter to respond to OPTIONS
 	wsContainer.Filter(wsContainer.OPTIONSFilter)
-
+	
 	// For use on the default container, you can write
 	// restful.Filter(restful.OPTIONSFilter())
-
+	
 	log.Print("start listening on localhost:8080")
 	server := &http.Server{Addr: ":8080", Handler: wsContainer}
 	log.Fatal(server.ListenAndServe())

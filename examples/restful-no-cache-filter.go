@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/emicklei/go-restful"
+	"github.com/KevinUMN/go-restful"
 )
 
 // This example shows how to use a WebService filter that passed the Http headers to disable browser cacheing.

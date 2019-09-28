@@ -9,8 +9,8 @@ import (
 	"runtime"
 	"strings"
 	"sync"
-
-	"github.com/KevinUmn/go-restful/log"
+	
+	"github.com/KevinUMN/go-restful/log"
 )
 
 // Container holds a collection of WebServices and a http.ServeMux to dispatch http requests.
@@ -84,12 +84,12 @@ func (c *Container) EnableContentEncoding(enabled bool) {
 func (c *Container) Add(service *WebService) *Container {
 	c.webServicesLock.Lock()
 	defer c.webServicesLock.Unlock()
-
+	
 	// if rootPath was not set then lazy initialize it
 	if len(service.rootPath) == 0 {
 		service.Path("/")
 	}
-
+	
 	// cannot have duplicate root paths
 	for _, each := range c.webServices {
 		if each.RootPath() == service.RootPath() {
@@ -97,7 +97,7 @@ func (c *Container) Add(service *WebService) *Container {
 			os.Exit(1)
 		}
 	}
-
+	
 	// If not registered on root then add specific mapping
 	if !c.isRegisteredOnRoot {
 		c.isRegisteredOnRoot = c.addHandler(service, c.ServeMux)
@@ -198,14 +198,14 @@ func (c *Container) Dispatch(httpWriter http.ResponseWriter, httpRequest *http.R
 // Dispatch the incoming Http Request to a matching WebService.
 func (c *Container) dispatch(httpWriter http.ResponseWriter, httpRequest *http.Request) {
 	writer := httpWriter
-
+	
 	// CompressingResponseWriter should be closed after all operations are done
 	defer func() {
 		if compressWriter, ok := writer.(*CompressingResponseWriter); ok {
 			compressWriter.Close()
 		}
 	}()
-
+	
 	// Instal panic recovery unless told otherwise
 	if !c.doNotRecover { // catch all for 500 response
 		defer func() {
@@ -215,7 +215,7 @@ func (c *Container) dispatch(httpWriter http.ResponseWriter, httpRequest *http.R
 			}
 		}()
 	}
-
+	
 	// Find best match Route ; err is non nil if no match was found
 	var webService *WebService
 	var route *Route
@@ -227,7 +227,7 @@ func (c *Container) dispatch(httpWriter http.ResponseWriter, httpRequest *http.R
 			c.webServices,
 			httpRequest)
 	}()
-
+	
 	// Detect if compression is needed
 	// assume without compression, test for override
 	contentEncodingEnabled := c.contentEncodingEnabled
@@ -246,7 +246,7 @@ func (c *Container) dispatch(httpWriter http.ResponseWriter, httpRequest *http.R
 			}
 		}
 	}
-
+	
 	if err != nil {
 		// a non-200 response has already been written
 		// run container filters anyway ; they should not touch the response...
@@ -310,13 +310,13 @@ func (c *Container) HandleWithFilter(pattern string, handler http.Handler) {
 			handler.ServeHTTP(httpResponse, httpRequest)
 			return
 		}
-
+		
 		chain := FilterChain{Filters: c.containerFilters, Target: func(req *Request, resp *Response) {
 			handler.ServeHTTP(httpResponse, httpRequest)
 		}}
 		chain.ProcessFilter(NewRequest(httpRequest), NewResponse(httpResponse))
 	}
-
+	
 	c.Handle(pattern, http.HandlerFunc(f))
 }
 
