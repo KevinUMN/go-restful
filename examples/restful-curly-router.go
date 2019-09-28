@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/emicklei/go-restful"
+	"github.com/KevinUMN/go-restful"
 )
 
 // This example has the same service definition as restful-user-resource

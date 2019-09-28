@@ -1,9 +1,5 @@
 package restful
 
-// Copyright 2013 Ernest Micklei. All rights reserved.
-// Use of this source code is governed by a license
-// that can be found in the LICENSE file.
-
 const (
 	MIME_XML   = "application/xml"          // Accept or Content-Type used in Consumes() and/or Produces()
 	MIME_JSON  = "application/json"         // Accept or Content-Type used in Consumes() and/or Produces()

@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-
-	"github.com/emicklei/go-restful"
+	
+	"github.com/KevinUMN/go-restful"
 )
 
 type User struct {
@@ -29,26 +29,26 @@ func newUserService() *restful.WebService {
 		Path("/users").
 		Consumes(restful.MIME_XML, restful.MIME_JSON).
 		Produces(restful.MIME_JSON, restful.MIME_XML)
-
+	
 	ws.Route(ws.POST("/").Filter(bodyLogFilter).To(createUser))
 	return ws
 }
 
 // Route Filter (defines FilterFunction)
 func bodyLogFilter(req *restful.Request, resp *restful.Response, chain *restful.FilterChain) {
-
+	
 	inBody, err := ioutil.ReadAll(req.Request.Body)
 	if err != nil {
 		resp.WriteError(400, err)
 		return
 	}
 	req.Request.Body = ioutil.NopCloser(bytes.NewReader(inBody))
-
+	
 	c := NewResponseCapture(resp.ResponseWriter)
 	resp.ResponseWriter = c
-
+	
 	chain.ProcessFilter(req, resp)
-
+	
 	log.Println("Request body:", string(inBody))
 	log.Println("Response body:", string(c.Bytes()))
 }

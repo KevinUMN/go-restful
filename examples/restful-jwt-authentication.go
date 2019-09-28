@@ -7,7 +7,7 @@ import (
 	"strings"
 	
 	"github.com/KevinUMN/go-jwt"
-	"github.com/emicklei/go-restful"
+	"github.com/KevinUMN/go-restful"
 )
 
 // This example shows how to create a (Route) Filter that performs a JWT HS512 authentication.

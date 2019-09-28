@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/emicklei/go-restful"
 	"log"
 	"net/http"
+	
+	"github.com/KevinUMN/go-restful"
 )
 
 type User struct {
@@ -35,7 +36,7 @@ func NewUserService() *restful.WebService {
 		Path("/users").
 		Consumes(restful.MIME_XML, restful.MIME_JSON).
 		Produces(restful.MIME_JSON, restful.MIME_XML)
-
+	
 	// install a response encoding filter
 	ws.Route(ws.GET("/{user-id}").Filter(encodingFilter).To(findUser))
 	return ws
